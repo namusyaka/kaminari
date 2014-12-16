@@ -8,7 +8,7 @@ module Kaminari::Helpers
   module SinatraHelpers
     class << self
       def registered(app)
-        app.register Padrino::Helpers
+        app.send(:include, Padrino::Helpers)
         app.helpers  HelperMethods
         @app = app
       end

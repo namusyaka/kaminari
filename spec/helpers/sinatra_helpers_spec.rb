@@ -49,6 +49,10 @@ EOT
             @options = {}
             erb ERB_TEMPLATE_FOR_PAGINATE
           end
+
+          get '/render' do
+            self.class.extensions.include?(Padrino::Rendering).inspect
+          end
         end
       end
 
@@ -81,6 +85,11 @@ EOT
           last_document.search('.page a').should(be_all do |elm|
             elm.attribute('href').value =~ /foo=bar/
           end)
+        end
+
+        it 'should not include Padrino::Rendering' do
+          get '/render'
+          expect(last_response.body).to eq('false')
         end
       end
 
